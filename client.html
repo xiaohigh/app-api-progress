@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>客户端页面</title>
+	<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.css">
+	<script src="//cdn.bootcss.com/jquery/3.2.0/jquery.min.js"></script>
+	<script src="//cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.js"></script>
+</head>
+<body>	
+	<div class="container" style="padding-top:20px;">
+		<button class="btn btn-primary">点击获取文章列表</button>
+	</div>
+	
+	<div class="container" style="padding-top:20px;">
+		<pre id="url"></pre>
+		<div class="bg-info" id="result" style="height:500px;word-break:break-word;padding:10px;">
+		</div>
+	</div>
+	<script>
+	//点击一个按钮
+	$('button').eq(0).click(function(){
+		var url = '/server.php';
+		showUrl(url);
+		//显示url地址
+		$.get(url,{}, function(data){
+			//显示返回的结果
+			showResult(data);
+		});
+	});
+
+	//显示当前的url
+	function showUrl(data) {
+		$('#url').html('URL: GET- '+data);
+	}
+
+	//显示当前返回的结果
+	function showResult(data) {
+		$('#result').text(data);
+	}
+	</script>
+</body>
+</html>
