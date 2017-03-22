@@ -102,8 +102,11 @@
 		/**
 		 * 检测签名是否合法
 		 */
-		public static function checkCommonSignValid()
+		public static function checkCommonSignValid($token='')
 		{
+			if($token == '') {
+				$token = self::$token;
+			}
 			//提取签名
 			$sign = isset($_GET['sign']) ? $_GET['sign'] : '';
 			//检测
@@ -116,11 +119,35 @@
 			ksort($_GET);
 			$str = self::arrayToUrl($_GET);
 			//加密
-			$calSign = md5($str.self::$token);
+			$calSign = md5($str.$token);
 			//
 			if($sign !== $calSign) {
 				self::response('nb006','sign error');
 			}
+		}
+
+		/**
+		 * 
+		 */
+		public static function checkLoginSignValid()
+		{
+			// 获取id参数
+			$id = isset($_GET['uid']) ? $_GET['uid'] : 0;
+			//
+			if(empty($id)) {
+				self::response('nb009','id missing');
+			}
+
+			//读取用户信息
+			$res = DB::table('users')->first($id);
+
+			//判断
+			if(empty($res)){
+				Tool::response('nb010','uid not valid');
+			}
+
+			self::checkCommonSignValid($res['token']);
+
 		}
 
 		/**
