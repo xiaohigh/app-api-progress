@@ -119,7 +119,36 @@
 			ksort($_GET);
 			$str = self::arrayToUrl($_GET);
 			//加密
-			$calSign = md5($str.$token);
+			$md = md5($str.$token);
+
+			//提取258位的字符
+			$tmp = '';
+			for($i=0;$i<strlen($md);$i++){
+				if($i == 2 || $i == 5 || $i == 8) {
+					$tmp .= $md[$i];
+				}
+			}
+
+			//
+			$index = hexdec($tmp) % 4;
+			//创建随机的数组
+			$ha = [
+				[1,3,4,6,7,12],
+				[2,3,5,6,9,12],
+				[5,7,9,10,18,20],
+				[1,3,4,6,9,18]
+			];
+
+			$h = $ha[$index];
+
+			//从md5中获取字符串
+			$tmp3 = '';
+			for($i=0;$i < count($h);$i++) {
+				$tmp3 .= $md[$i];
+			}
+
+			$calSign = md5($tmp3);
+
 			//
 			if($sign !== $calSign) {
 				self::response('nb006','sign error');

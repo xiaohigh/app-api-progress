@@ -201,7 +201,36 @@ function makeUrl(obj) {
 
 //加密字符串
 function encrypt(str) {
-	return md5(str);
+	var md = md5(str);
+	//截取258
+	var tmp2 = '';
+	for (var i = 0; i<md.length; i++) {
+		if(i == 2 || i == 5 || i == 8) {
+			tmp2 += md[i]
+		}
+	}
+
+	//按4取余
+	var index = parseInt(tmp2, 16) % 4;
+
+	//创建随机的数组
+	var ha = [
+		[1,3,4,6,7,12],
+		[2,3,5,6,9,12],
+		[5,7,9,10,18,20],
+		[1,3,4,6,9,18]
+	];
+
+	//得到加密的数字	
+	var h = ha[index];
+
+	//从md5中获取字符串
+	var tmp3 = '';
+	for(var i=0;i< h.length;i++) {
+		tmp3 += md[i];
+	}
+
+	return md5(tmp3);
 }
 
 //页面初始化
