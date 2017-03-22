@@ -119,7 +119,7 @@
 		//创建url
 		var res = makeUrl(obj);
 		//返回签名
-		return encrypt(res);		
+		return encrypt(res+localStorage.getItem('common_token'));		
 	}
 
 	//解析url获得get参数
@@ -169,6 +169,16 @@
 	function encrypt(str) {
 		return md5(str);
 	}
+
+	//页面初始化
+	function init() {
+		//检测本地是否有默认的token
+		var token = localStorage.getItem('common_token');
+		if(!token) {
+			localStorage.setItem('common_token','lampbrother');
+		}
+	}
+	init();
 	</script>
 </body>
 </html>

@@ -15,3 +15,5 @@
 4. version-4 添加时间戳检测
 
 5. version-5 添加md5签名检测
+
+6. version-6 添加默认token进行组合签名

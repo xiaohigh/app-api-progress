@@ -2,6 +2,8 @@
 
 	class Tool
 	{
+
+		protected static $token = 'lampbrother';
 		/**
 		 * 返回json格式的数据
 		 */
@@ -100,7 +102,7 @@
 		/**
 		 * 检测签名是否合法
 		 */
-		public static function checkSignValid()
+		public static function checkCommonSignValid()
 		{
 			//提取签名
 			$sign = isset($_GET['sign']) ? $_GET['sign'] : '';
@@ -112,13 +114,25 @@
 			unset($_GET['sign']);
 			//
 			ksort($_GET);
-			$str = http_build_query($_GET);
+			$str = self::arrayToUrl($_GET);
 			//加密
-			$calSign = md5($str);
+			$calSign = md5($str.self::$token);
 			//
 			if($sign !== $calSign) {
 				self::response('nb006','sign error');
 			}
+		}
+
+		/**
+		 * 将数组拼接成url参数形式
+		 */
+		public static function arrayToUrl($arr)
+		{
+			$str = '';
+			foreach ($arr as $key => $value) {
+				$str .= $key.'='.$value.'&';
+			}
+			return trim($str,'&');
 		}
 
 

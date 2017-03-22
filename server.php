@@ -11,7 +11,7 @@
 
 	//检测时间戳
 	Tool::checkTimestamp();
-	Tool::checkSignValid();
+	Tool::checkCommonSignValid();
 
 	//获取参数
 	$c = isset($_GET['c']) ? $_GET['c'] : 'index';
