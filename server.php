@@ -9,6 +9,9 @@
 		}
 	}
 
+	//检测时间戳
+	Tool::checkTimestamp();
+
 	//获取参数
 	$c = isset($_GET['c']) ? $_GET['c'] : 'index';
 	$a = isset($_GET['a']) ? $_GET['a'] : 'index';

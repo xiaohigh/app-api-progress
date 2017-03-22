@@ -78,6 +78,23 @@
 			}else{
 				echo self::toJson($arr);
 			}
+			die;
+		}
+
+		/**
+		 * 检测时间戳是否可用
+		 */
+		public static function checkTimestamp()
+		{
+			//如果时间戳为空
+			if(empty($_GET['t'])){
+				self::response('nb003', 'miss timestamp');
+			}
+
+			//如果传递的时间戳跟服务器时间相差大于20秒 证明请求有问题
+			if(abs($_GET['t'] - time()) > 20) {
+				self::response('nb004', 'timestamp expired');
+			}
 		}
 
 

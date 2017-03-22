@@ -26,6 +26,8 @@
 	<script>
 	//控制返回数据的格式
 	var format = 'json';
+	var timestamp = Date.parse(new Date()) / 1000;
+	
 	$('.f').click(function(){
 		//调整样式
 		$('.f').removeClass('btn-danger');
@@ -37,6 +39,7 @@
 	//点击一个按钮
 	$('button').eq(0).click(function(){
 		var url = '/server.php?c=article&a=list&format='+format;
+		var url = addTimestamp(url);
 		showUrl(url);
 		//显示url地址
 		$.get(url,{}, function(data){
@@ -48,6 +51,8 @@
 	//第二个按钮
 	$('button').eq(1).click(function(){
 		var url = '/server.php?c=article&a=list&page=2&num=20&cate=5&format='+format;
+		var url = addTimestamp(url);
+
 		showUrl(url);
 		//显示url地址
 		$.get(url,{}, function(data){
@@ -59,6 +64,8 @@
 	//第三个按钮
 	$('button').eq(2).click(function(){
 		var url = '/server.php?c=article&a=detail&id=20&format='+format;
+		var url = addTimestamp(url);
+
 		showUrl(url);
 		//显示url地址
 		$.get(url,{}, function(data){
@@ -76,6 +83,17 @@
 	//显示当前返回的结果
 	function showResult(data) {
 		$('#result').text(data);
+	}
+
+	//添加时间戳
+	function addTimestamp(url){
+		return url+'&t='+getTimestamp();
+	}
+
+	//获取时间戳
+	function getTimestamp(){
+		// return Date.parse(new Date()) / 1000;
+		return timestamp;
 	}
 	</script>
 </body>
