@@ -17,3 +17,5 @@
 5. version-5 添加md5签名检测
 
 6. version-6 添加默认token进行组合签名
+
+7. version-7 添加登陆操作. 登陆向客户端写入登陆token, 针对登陆操作必须使用登陆token来签名

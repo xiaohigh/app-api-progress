@@ -11,7 +11,12 @@
 
 	//检测时间戳
 	Tool::checkTimestamp();
-	Tool::checkCommonSignValid();
+	//检测签名
+	if(!isset($_GET['uid'])){
+		Tool::checkCommonSignValid();
+	}else{
+		Tool::checkLoginSignValid();
+	}
 
 	//获取参数
 	$c = isset($_GET['c']) ? $_GET['c'] : 'index';
