@@ -97,6 +97,32 @@
 			}
 		}
 
+		/**
+		 * 检测签名是否合法
+		 */
+		public static function checkSignValid()
+		{
+			//提取签名
+			$sign = isset($_GET['sign']) ? $_GET['sign'] : '';
+			//检测
+			if(empty($sign)) {
+				self::response('nb005','sign missing');
+			}
+			//删除sign参数
+			unset($_GET['sign']);
+			//
+			ksort($_GET);
+			$str = http_build_query($_GET);
+			//加密
+			$calSign = md5($str);
+			//
+			if($sign !== $calSign) {
+				self::response('nb006','sign error');
+			}
+		}
+
+
+
 
 	}
 

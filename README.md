@@ -12,4 +12,6 @@
 
 3. version-3 对返回结果的功能进行封装,完善xml格式返回功能,添加多个api接口
 
-4. version-4 添加时间戳.
+4. version-4 添加时间戳检测
+
+5. version-5 添加md5签名检测
