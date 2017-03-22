@@ -10,6 +10,10 @@
 <body>	
 	<div class="container" style="padding-top:20px;">
 		<button class="btn btn-primary">点击获取文章列表</button>
+
+		<hr>
+		<button class="btn btn-default f">xml</button>
+		<button class="btn btn-default f">json</button>
 	</div>
 	
 	<div class="container" style="padding-top:20px;">
@@ -18,9 +22,19 @@
 		</div>
 	</div>
 	<script>
+	//控制返回数据的格式
+	var format = 'json';
+	$('.f').click(function(){
+		//调整样式
+		$('.f').removeClass('btn-danger');
+		$(this).addClass('btn-danger');
+		format = $(this).html();
+	});
+
+
 	//点击一个按钮
 	$('button').eq(0).click(function(){
-		var url = '/server.php';
+		var url = '/server.php?format='+format;
 		showUrl(url);
 		//显示url地址
 		$.get(url,{}, function(data){
