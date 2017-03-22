@@ -9,7 +9,9 @@
 </head>
 <body>	
 	<div class="container" style="padding-top:20px;">
-		<button class="btn btn-primary">点击获取文章列表</button>
+		<button class="btn btn-primary">文章列表</button>
+		<button class="btn btn-primary">列表更多参数</button>
+		<button class="btn btn-primary">文章详情</button>
 
 		<hr>
 		<button class="btn btn-default f">xml</button>
@@ -34,7 +36,7 @@
 
 	//点击一个按钮
 	$('button').eq(0).click(function(){
-		var url = '/server.php?format='+format;
+		var url = '/server.php?c=article&a=list&format='+format;
 		showUrl(url);
 		//显示url地址
 		$.get(url,{}, function(data){
@@ -42,6 +44,29 @@
 			showResult(data);
 		});
 	});
+
+	//第二个按钮
+	$('button').eq(1).click(function(){
+		var url = '/server.php?c=article&a=list&page=2&num=20&cate=5&format='+format;
+		showUrl(url);
+		//显示url地址
+		$.get(url,{}, function(data){
+			//显示返回的结果
+			showResult(data);
+		});
+	});
+
+	//第三个按钮
+	$('button').eq(2).click(function(){
+		var url = '/server.php?c=article&a=detail&id=20&format='+format;
+		showUrl(url);
+		//显示url地址
+		$.get(url,{}, function(data){
+			//显示返回的结果
+			showResult(data);
+		});
+	});
+
 
 	//显示当前的url
 	function showUrl(data) {

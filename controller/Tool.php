@@ -31,14 +31,53 @@
 		/**
 		 * 返回二维数组的数据
 		 */
-		public static function toXmlT($data)
+		public static function toXmlT($data, $item='xml')
+		{
+			$xml = "<".$item.">";
+			foreach ($data as $key => $value) {
+				if(is_array($value)){
+					$xml .= self::ToXml($value, 'item');
+				}else{
+	    			$xml.="<".$key."><![CDATA[".$value."]]></".$key.">";
+				}
+			}
+			$xml .= "</".$item.">";
+			return $xml;
+		}
+
+		/**
+		 * 返回二维不规则数据
+		 */
+		public static function toXmlCom($data)
 		{
 			$xml = "<xml>";
 			foreach ($data as $key => $value) {
-				$xml .= self::ToXml($value, 'item');
+				if(is_array($value)){
+					$xml .= self::toXmlT($value, $key);
+				}else{
+					$xml.="<".$key."><![CDATA[".$value."]]></".$key.">";
+				}
 			}
 			$xml .= "</xml>";
 			return $xml;
+		}
+
+		/**
+		 * 向客户端返回信息
+		 * @$arr ['code'=>'nb000','msg'=>'ok','data'=>[]];
+		 */
+		public static function response($code, $msg, $data=[])
+		{
+			//判断格式
+			$format = isset($_GET['format']) ? $_GET['format'] : 'json';
+			//拼接数组
+			$arr = ['code' => $code, 'msg'=>$msg, 'data'=>$data];
+			//根据情况返回不同的结果
+			if($format == 'xml'){
+				echo self::toXmlCom($arr);die;
+			}else{
+				echo self::toJson($arr);
+			}
 		}
 
 
